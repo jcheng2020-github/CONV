@@ -9,9 +9,10 @@ const int KERNEL_SIZE = 3;
 const int SIGNAL_SIZE = 10;
 const int STRIDE = 1;
 const int PADDING = 0;
+const int DILATION = 1;
 
 const int RESULT_TEMPLATE_SIZE = SIGNAL_SIZE + (PADDING * 2);
-const int RESULT_SIZE = ( RESULT_TEMPLATE_SIZE - (KERNEL_SIZE - 1) ) / STRIDE;
+const int RESULT_SIZE = ( RESULT_TEMPLATE_SIZE - (KERNEL_SIZE * DILATION - 1) ) / STRIDE;
 
 int main()
 {
@@ -73,7 +74,7 @@ int main()
             {
                 for(int l = 0; l < KERNEL_SIZE; l ++)
                 {
-                    result[i][j] += result_template[i * STRIDE + k][j * STRIDE + l] * kernel[k][l];
+                    result[i][j] += result_template[i * STRIDE + k * DILATION][j * STRIDE + l * DILATION] * kernel[k][l];
                 }
             }
         }
